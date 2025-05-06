@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Expense Tracker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #f4f7f9;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            color: #2c3e50;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input, select {
+            padding: 8px;
+            width: calc(100% - 20px);
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Expense Tracker Dashboard</h2>
+    <a th:href="@{/}" class="logout-btn">Logout</a>
+</div>
+
+<div class="container">
+    <h3>Add New Expense</h3>
+    <form method="post" th:action="@{/expenses/add}">
+        <input type="text" name="title" placeholder="Expense Title" required />
+        <input type="number" name="amount" step="0.01" placeholder="Amount (e.g. 100.50)" required />
+        <input type="date" name="date" required />
+        <select name="category" required>
+            <option value="">Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Bills">Bills</option>
+            <option value="Health">Health</option>
+            <option value="Other">Other</option>
+        </select>
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <h3>Your Expenses</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Example loop: Replace with actual data -->
+            <tr th:each="expense : ${expenses}">
+                <td th:text="${expense.title}">Groceries</td>
+                <td th:text="${expense.amount}">50.00</td>
+                <td th:text="${expense.date}">2025-05-01</td>
+                <td th:text="${expense.category}">Food</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
