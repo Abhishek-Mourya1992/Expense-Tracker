@@ -1,8 +1,9 @@
-package com.expensetracker.service;
+package com.expensetracker.expense.service;
 
 import java.util.List;
 
-import com.expensetracker.entity.Expense;
+import com.expensetracker.expense.entity.DeleteExpenseDto;
+import com.expensetracker.expense.entity.Expense;
 
 public interface ExpenseService {
 
@@ -13,5 +14,8 @@ public interface ExpenseService {
 	public boolean deleteAllExpense(Long userId);
 
 	public boolean deleteExpense(Long userId, Long id);
+	
+	public int deleteMultipleExpense(DeleteExpenseDto deleteDto);
+	
 
 }

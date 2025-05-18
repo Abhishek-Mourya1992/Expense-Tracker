@@ -1,18 +1,16 @@
-package com.expensetracker.service;
+package com.expensetracker.expense.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
-import com.expensetracker.entity.Expense;
-import com.expensetracker.entity.User;
-import com.expensetracker.repo.ExpenseRepo;
-import com.expensetracker.repo.UserRepo;
-
-import jakarta.transaction.Transactional;
+import com.expensetracker.expense.entity.DeleteExpenseDto;
+import com.expensetracker.expense.entity.Expense;
+import com.expensetracker.expense.repo.ExpenseRepo;
+import com.expensetracker.user.entity.User;
+import com.expensetracker.user.repo.UserRepo;
 
 @Service
 public class ExpenseServceImpl implements ExpenseService {
@@ -69,6 +67,16 @@ public class ExpenseServceImpl implements ExpenseService {
 		}
 		
 
+	}
+
+	@Override
+	public int deleteMultipleExpense(DeleteExpenseDto deleteExpenseDto) {
+		Long userid = deleteExpenseDto.getUserid();
+		List<Long> ids = deleteExpenseDto.getIds();
+		
+		
+		  int deleteMultipleExpense = expenseRepo.deleteMultipleExpense(userid, ids);
+		return deleteMultipleExpense;
 	}
 
 }

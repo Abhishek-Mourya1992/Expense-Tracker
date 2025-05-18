@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 420px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 6px;
+            text-align: left;
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background: linear-gradient(135deg, #5C6BC0, #3949ab);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #3f4e9b, #2c387e);
+            transform: scale(1.02);
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #4caf50;
+        }
+
+        .error {
+            color: #f44336;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #5C6BC0;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create New Account</h1>
+        <form method="post" th:action="@{/createUser-web}" th:object="${user}">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" th:field="*{name}" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required />
+
+            <label for="mobile">Mobile:</label>
+            <input type="text" id="mobile" th:field="*{mobile}" required />
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p class="message" th:text="${message}" th:if="${message != null}"></p>
+        <a href="/" class="back-link">← Back to Login</a>
+    </div>
+</body>
+</html>

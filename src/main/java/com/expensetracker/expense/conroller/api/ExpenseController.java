@@ -1,4 +1,4 @@
-package com.expensetracker.conroller.api;
+package com.expensetracker.expense.conroller.api;
 
 import java.util.List;
 
@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.expensetracker.entity.Expense;
-import com.expensetracker.service.ExpenseServceImpl;
+import com.expensetracker.expense.entity.DeleteExpenseDto;
+import com.expensetracker.expense.entity.Expense;
+import com.expensetracker.expense.service.ExpenseServceImpl;
+
+import jakarta.transaction.Transactional;
 
 @RestController
 public class ExpenseController {
@@ -28,10 +31,8 @@ public class ExpenseController {
 		if (isExpenseSaved) {
 			return ResponseEntity.ok("Expense details saved");
 		} else {
-
 			return ResponseEntity.ok("Expense details not saved");
 		}
-
 	}
 
 	@GetMapping("/getExpense/{userId}")
@@ -43,7 +44,6 @@ public class ExpenseController {
 		} else {
 			return ResponseEntity.status(HttpStatus.OK).body(expense);
 		}
-
 	}
 
 	@DeleteMapping("/deleteAllExpense/{userId}")
@@ -68,5 +68,20 @@ public class ExpenseController {
 		}
 
 	}
+	
+	@Transactional
+	@DeleteMapping("/deleteMultipleExpense")
+	public ResponseEntity<String> deleteMultiExpenseByids( @RequestBody DeleteExpenseDto deleteExpenseDto) {
+		  int deleteMultipleExpense = expenseServceImpl.deleteMultipleExpense(deleteExpenseDto);
+		
+		if (deleteMultipleExpense>0) {
+			return ResponseEntity.status(HttpStatus.OK).body("Selected Expenses are deleted successfully ");
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body("Unable to delete selected expense");
+		}
+
+	}
+
+	
 
 }

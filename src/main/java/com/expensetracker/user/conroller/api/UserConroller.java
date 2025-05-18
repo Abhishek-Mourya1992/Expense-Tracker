@@ -1,16 +1,17 @@
-package com.expensetracker.conroller.api;
+package com.expensetracker.user.conroller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.expensetracker.entity.User;
-import com.expensetracker.service.UserServiceImpl;
+import com.expensetracker.user.entity.User;
+import com.expensetracker.user.service.UserServiceImpl;
 
 @RestController
 public class UserConroller {
@@ -20,8 +21,7 @@ public class UserConroller {
 
 	@PostMapping("/createUser")
 	public ResponseEntity<String> createUser(@RequestBody User user) {
-		user.setEmail(user.getEmail().toLowerCase());
-
+		
 		boolean isUserCreated = userServiceImpl.createUser(user);
 		if (isUserCreated) {
 			return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
@@ -30,6 +30,8 @@ public class UserConroller {
 		}
 	}
 
+	
+	
 	@GetMapping("/findByEmail/{email}")
 	public ResponseEntity<?> findByEmail(@PathVariable String email) {
 		User user = userServiceImpl.findByEmail(email);
@@ -52,5 +54,12 @@ public class UserConroller {
 		}
 
 	}
+	
+	@DeleteMapping("/deleteAllUser")
+	public void deleteAllUser() {
+		userServiceImpl.deleteAllUser();
+	}
+	
+	
 
 }

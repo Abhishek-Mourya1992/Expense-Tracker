@@ -1,91 +1,134 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>OTP Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fc;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        label {
-            font-size: 16px;
-            color: #555;
-            display: block;
-            margin-bottom: 8px;
-            text-align: left;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            background-color: #5C6BC0;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #3f4e9b;
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #4caf50;
-        }
-        .error {
-            color: #f44336;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>OTP Login</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f7fc;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.container {
+	background-color: #fff;
+	padding: 40px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 400px;
+	text-align: center;
+}
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+label {
+	font-size: 16px;
+	color: #555;
+	display: block;
+	margin-bottom: 8px;
+	text-align: left;
+}
+
+input[type="text"] {
+	width: 100%;
+	padding: 12px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	box-sizing: border-box;
+}
+
+.signup-button {
+	display: inline-block;
+	margin-top: 10px;
+	padding: 12px 24px;
+	font-size: 16px;
+	background: linear-gradient(135deg, #42a5f5, #478ed1);
+	color: white;
+	text-decoration: none;
+	border-radius: 30px;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 10px rgba(66, 165, 245, 0.4);
+}
+
+.signup-button:hover {
+	background: linear-gradient(135deg, #1e88e5, #1565c0);
+	transform: scale(1.05);
+	box-shadow: 0 6px 14px rgba(30, 136, 229, 0.6);
+}
+
+button {
+	width: 100%;
+	padding: 12px;
+	font-size: 16px;
+	background-color: #5C6BC0;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #3f4e9b;
+}
+
+.message {
+	margin-top: 20px;
+	font-size: 14px;
+	color: #4caf50;
+}
+
+.error {
+	color: #f44336;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1> OTP Login For Expense Tracker App</h1>
-         <form  method="post" th:action="@{webRequest-otp}">
-            <label for="emailOrPhone">Enter Email or Phone:</label>
-            <input type="text" id="emailOrPhone" name="emailOrPhone" required="true"  th:value="${emailOrPhone}"/>
-            <button type="submit">Request OTP</button>
-        </form>
-        
-        <!-- Verify OTP form (Step 2) -->
-    <form th:if="${otpSent != null}" method="post" th:action="@{webVerify-otp}">
-        <input type="hidden" name="emailOrPhone" th:value="${emailOrPhone}" />
-        <label for="otp">Enter OTP:</label>
-        <input type="text" id="otp" name="otp" required />
-        <button type="submit">Verify OTP</button>
-    </form>
-        
-        
-        <p class="message" th:text="${message}" th:classappend="${message != null ? 'success' : 'error'}"></p>
-    </div>
+
+
+
+
+	<div class="container">
+		<h1>OTP Login For Expense Tracker App</h1>
+		<form method="post" th:action="@{webRequest-otp}">
+			<label for="emailOrPhone">Enter Email or Phone:</label> <input
+				type="text" id="emailOrPhone" name="emailOrPhone" required="true"
+				th:value="${emailOrPhone}" />
+			<button type="submit">Request OTP</button>
+		</form>
+
+		<!-- Verify OTP form (Step 2) -->
+		<form th:if="${otpSent != null}" method="post"
+			th:action="@{webVerify-otp}">
+			<input type="hidden" name="emailOrPhone" th:value="${emailOrPhone}" />
+			<label for="otp">Enter OTP:</label> <input type="text" id="otp"
+				name="otp" required />
+			<button type="submit">Verify OTP</button>
+		</form>
+
+
+		<p class="message" th:text="${message}"
+			th:classappend="${message != null ? 'success' : 'error'}"></p>
+			
+		<p class="error" th:text="${error}"
+			th:classappend="${message != null ? 'success' : 'error'}"></p>
+
+		<!-- Sign Up Button -->
+		<div style="margin-top: 30px;">
+			<p>Don't have an account?</p>
+			<a th:href="@{/signUpuser}" class="signup-button">Sign Up</a>
+		</div>
+	</div>
 </body>
 </html>
